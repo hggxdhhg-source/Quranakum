@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071c17">
+  <meta name="description" content="قرآنكم: المصحف كاملًا، الأذكار، المسبحة، ومواقيت الصلاة">
+  <link rel="manifest" href="manifest.json">
+  <title>قرآنكم | رفيق يومك</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="Quranakum.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <a href="#home" class="brand">
+      <span class="brand-mark">۞</span>
+      <span>
+        <strong>قرآنكم</strong>
+        <small>رفيق يومك إلى الطمأنينة</small>
+      </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة">☰</button>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" class="nav-link active">الرئيسية</a>
+      <a href="#quran" class="nav-link">القرآن الكريم</a>
+      <a href="#adhkar" class="nav-link">الأذكار</a>
+      <a href="#hadiths" class="nav-link">أدعية وأحاديث</a>
+      <a href="#tasbeeh" class="nav-link">المسبحة</a>
+      <a href="#prayer" class="nav-link">مواقيت الصلاة</a>
+    </nav>
+
+    <button class="theme-toggle" id="themeToggle" title="تغيير المظهر">☼</button>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">✦ سكينة للقلب في كل يوم</span>
+
+        <h1>اجعل للقرآن<br><span>نصيبًا من يومك</span></h1>
+
+        <p>
+          لحظات من الذكر، وآيات من النور، وطمأنينة تجدها
+          كلما عدت إلى كلام الله.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#quran" class="btn btn-gold">ابدأ القراءة ←</a>
+          <a href="#adhkar" class="text-link">ابدأ ورد الأذكار ↙</a>
+        </div>
+
+        <div class="hero-verse quran-font">
+          ﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="art-ring">
+          <div class="art-center">
+            <span>☾</span>
+            <h2>القرآن</h2>
+            <p>نور وهداية</p>
+            <span class="art-star">✦</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily verse -->
+    <section class="daily-verse section-wrap">
+      <span class="section-kicker">آية اليوم</span>
+
+      <p class="quran-font verse-text">
+        ﴿ وَهُوَ مَعَكُمْ أَيْنَ مَا كُنْتُمْ ۚ
+        وَاللَّهُ بِمَا تَعْمَلُونَ بَصِيرٌ ﴾
+      </p>
+
+      <div class="verse-bottom">
+        <span>سورة الحديد · الآية ٤</span>
+        <button class="small-button" id="copyVerse">نسخ الآية ▢</button>
+      </div>
+    </section>
+
+    <!-- Quran -->
+    <section class="section-wrap content-section" id="quran">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">كلام الله</span>
+          <h2>القرآن الكريم</h2>
+          <p>اختر سورة وابدأ رحلتك مع الآيات.</p>
+        </div>
+        <span class="heading-symbol">۞</span>
+      </div>
+
+      <div class="quran-layout">
+        <div class="panel surah-panel">
+          <div class="panel-heading">
+            <h3>السور</h3>
+            <span class="muted">١١٤ سورة</span>
+          </div>
+
+          <div class="filter-row tabs" id="surahTabs">
+            <button class="filter-chip selected" data-tab="all">كل السور</button>
+            <button class="filter-chip" data-tab="favs">★ المفضلة (<span id="favCount">٠</span>)</button>
+          </div>
+
+          <input
+            type="search"
+            id="surahSearch"
+            class="search-input"
+            placeholder="ابحث عن سورة..."
+            aria-label="البحث عن سورة"
+          >
+
+          <div class="surah-list" id="surahList"></div>
+        </div>
+
+        <div class="panel reading-panel">
+          <span class="section-kicker">تلاوة وتدبر</span>
+          <h3 id="selectedSurahTitle">سورة الفاتحة</h3>
+          <p id="selectedSurahMeta" class="muted"></p>
+
+          <div class="reader-tools">
+            <button class="small-button fav-main" id="favSurah">☆ أضف للمفضلة</button>
+            <button class="small-button" id="prevSurah" aria-label="السورة السابقة">→ السابقة</button>
+            <button class="small-button" id="nextSurah" aria-label="السورة التالية">التالية ←</button>
+            <span class="tool-spacer"></span>
+            <button class="small-button" id="fontDown" aria-label="تصغير الخط">أ−</button>
+            <button class="small-button" id="fontUp" aria-label="تكبير الخط">أ+</button>
+          </div>
+          <section class="qa" id="qaPlayer" aria-label="مشغّل التلاوة">
+            <div class="qa-pick">
+              <label>القارئ <select id="qaReciter"></select></label>
+              <label id="qaStyleWrap">نوع التسجيل <select id="qaStyle"></select></label>
+            </div>
+            <p class="qa-now" id="qaNow"></p>
+            <div class="qa-seek">
+              <span id="qaCur" dir="ltr">٠:٠٠</span>
+              <input type="range" id="qaSeek" min="0" max="1000" value="0" aria-label="موضع التشغيل" dir="ltr">
+              <span id="qaDur" dir="ltr">٠:٠٠</span>
+            </div>
+            <div class="qa-controls">
+              <button id="qaPrev" aria-label="السورة السابقة">⏮ السابقة</button>
+              <button id="qaPlay" class="qa-main" aria-label="تشغيل">▶ تشغيل</button>
+              <button id="qaNext" aria-label="السورة التالية">التالية ⏭</button>
+            </div>
+            <div class="qa-extra">
+              <button id="qaReplay" aria-label="إعادة السورة من البداية">↺ إعادة</button>
+              <button id="qaRepeat" aria-pressed="false" aria-label="تكرار السورة">🔁 تكرار</button>
+              <button id="qaAuto" aria-pressed="true" aria-label="تشغيل السورة التالية تلقائيًا">⏭ تلقائي</button>
+              <label>السرعة
+                <select id="qaSpeed"><option value="0.75">٠٫٧٥×</option><option value="1" selected>١×</option><option value="1.25">١٫٢٥×</option><option value="1.5">١٫٥×</option></select>
+              </label>
+              <span class="qa-vol">
+                <button id="qaMute" aria-label="كتم الصوت">🔊</button>
+                <input type="range" id="qaVol" min="0" max="1" step="0.05" value="1" aria-label="مستوى الصوت">
+              </span>
+            </div>
+            <p class="qa-status" id="qaStatus" role="status" aria-live="polite"></p>
+            <button id="qaRetry" class="small-button" hidden>إعادة المحاولة</button>
+          </section>
+
+          <div class="basmala quran-font" id="basmala">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </div>
+
+          <div class="ayahs quran-font" id="ayahContainer"></div>
+
+          <p class="muted demo-note">
+            اضغط على أي آية لنسخها. الصوتيات من <a href="https://mp3quran.net" target="_blank" rel="noopener">MP3Quran.net</a> وتُبثّ من خوادمهم مباشرة.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Adhkar -->
+    <section class="section-wrap content-section" id="adhkar">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">على مهلٍ.. وطمأنينة</span>
+          <h2>وردك اليومي</h2>
+          <p>أذكار مأثورة بنصوصها ومصادرها، رتّبها حسب وقتك وأكملها بهدوء.</p>
+        </div>
+        <span class="heading-symbol">✧</span>
+      </div>
+
+      <div class="adhkar-overview panel">
+        <div class="adhkar-overview-icon" aria-hidden="true">☾</div>
+        <div class="adhkar-overview-copy">
+          <span class="adhkar-overview-label">خطوات صغيرة.. وأجر عظيم</span>
+          <strong id="adhkarProgressText">٠٪ مكتمل</strong>
+          <span id="adhkarProgressDetail" class="muted">ابدأ بما تيسّر لك، فالذكر طمأنينة للقلب.</span>
+        </div>
+        <div
+          class="adhkar-progress-track"
+          role="progressbar"
+          aria-label="إنجاز ورد الأذكار اليومي"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <span id="adhkarProgressBar"></span>
+        </div>
+      </div>
+
+      <div class="filter-row" id="adhkarFilters">
+        <button class="filter-chip selected" data-filter="all" aria-pressed="true">ورد اليوم</button>
+        <button class="filter-chip" data-filter="morning" aria-pressed="false">الصباح</button>
+        <button class="filter-chip" data-filter="evening" aria-pressed="false">المساء</button>
+        <button class="filter-chip" data-filter="general" aria-pressed="false">أذكار متنوعة</button>
+      </div>
+
+      <p class="adhkar-note">الأعداد المعروضة للتنظيم والمتابعة؛ ولا يُحدَّد عدد للذكر إلا إذا ورد به دليل.</p>
+      <div class="adhkar-grid" id="adhkarGrid"></div>
+    </section>
+
+    <!-- Duas and hadith -->
+    <section class="section-wrap content-section" id="hadiths">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">من القرآن والسنة الصحيحة</span>
+          <h2>أدعية وأحاديث</h2>
+          <p>أدعية مع مصادرها، ومكتبة قابلة للبحث تضم ٥٠٠ حديث من الصحيحين.</p>
+        </div>
+        <span class="heading-symbol">۞</span>
+      </div>
+
+      <div class="library-preview" id="libraryPreview"></div>
+      <button
+        class="library-expand-button"
+        id="libraryExpand"
+        type="button"
+        aria-expanded="false"
+        aria-controls="libraryExpanded"
+      >
+        عرض المزيد <span aria-hidden="true">⌄</span>
+      </button>
+
+      <div id="libraryExpanded" hidden>
+        <div class="library-tabs" role="tablist" aria-label="محتوى الأدعية والأحاديث">
+          <button class="library-tab selected" id="duasTab" role="tab" aria-selected="true" aria-controls="duasPanel" data-library="duas">أدعية مختارة</button>
+          <button class="library-tab" id="hadithsTab" role="tab" aria-selected="false" aria-controls="hadithsPanel" data-library="hadiths">أحاديث الصحيحين <span class="library-count">٥٠٠</span></button>
+        </div>
+
+        <div class="library-panel" id="duasPanel" role="tabpanel" aria-labelledby="duasTab">
+          <div class="duas-grid" id="duasGrid"></div>
+        </div>
+
+        <div class="library-panel" id="hadithsPanel" role="tabpanel" aria-labelledby="hadithsTab" hidden>
+          <div class="hadith-toolbar panel">
+            <label class="hadith-search-wrap">
+              <span>ابحث في نص الحديث</span>
+              <input id="hadithSearch" class="search-input" type="search" placeholder="مثال: إنما الأعمال بالنيات" autocomplete="off">
+            </label>
+            <label class="hadith-book-wrap">
+              <span>المصدر</span>
+              <select id="hadithBook" class="search-input">
+                <option value="all">الصحيحان</option>
+                <option value="bukhari">صحيح البخاري</option>
+                <option value="muslim">صحيح مسلم</option>
+              </select>
+            </label>
+            <p id="hadithResults" class="hadith-results" role="status" aria-live="polite"></p>
+          </div>
+          <div class="hadith-list" id="hadithList" aria-live="polite"></div>
+          <div class="hadith-pagination">
+            <button class="small-button" id="hadithPrev" disabled>السابق</button>
+            <span id="hadithPageLabel" aria-live="polite"></span>
+            <button class="small-button" id="hadithNext">التالي</button>
+          </div>
+          <p class="hadith-credit muted">
+            النص العربي والترقيم المتسلسل من <a href="https://github.com/fawazahmed0/hadith-api" target="_blank" rel="noopener">مشروع Hadith API</a>؛ راجع المصدر الأصلي لكل حديث عبر الرابط المرفق. قد يختلف الترقيم بين الطبعات.
+          </p>
+        </div>
+      </div>
+      <button class="library-expand-button library-collapse-button" id="libraryCollapse" type="button" hidden>عرض أقل <span aria-hidden="true">⌃</span></button>
+    </section>
+
+    <!-- Tasbeeh -->
+    <section class="section-wrap content-section" id="tasbeeh">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">لا يزال لسانك رطبًا</span>
+          <h2>المسبحة الإلكترونية</h2>
+          <p>اختر الذكر والهدف واضغط على الدائرة، ويُحفظ عدّك على جهازك.</p>
+        </div>
+        <span class="heading-symbol">◉</span>
+      </div>
+
+      <div class="panel tp">
+        <div class="tp-side">
+          <p class="tp-label">وردك الحالي</p>
+          <h3 id="dhikrPhrase" class="quran-font tp-phrase"></h3>
+
+          <p class="tp-label">اختر الذكر</p>
+          <div class="tp-chips" id="dhikrChips"></div>
+
+          <p class="tp-label">الهدف في كل جولة</p>
+          <div class="tp-chips" id="goalChips"></div>
+
+          <div class="tp-actions">
+            <button class="small-button" id="vibToggle" aria-pressed="true">الاهتزاز: يعمل</button>
+            <button class="small-button" id="resetTasbeeh">↻ إعادة العداد</button>
+          </div>
+        </div>
+
+        <div class="tp-main">
+          <div class="tp-dial">
+            <svg viewBox="0 0 220 220" class="tp-ring" aria-hidden="true">
+              <circle class="tp-track" cx="110" cy="110" r="100"></circle>
+              <circle class="tp-progress" id="ringProgress" cx="110" cy="110" r="100"></circle>
+            </svg>
+            <button class="tp-tap" id="countButton" aria-label="زيادة عداد التسبيح">
+              <span class="tp-number" id="counterNumber">٠</span>
+              <span class="tp-goal" id="goalLabel">من ٣٣</span>
+            </button>
+          </div>
+
+          <div class="tp-stats">
+            <div><strong id="lapCount">٠</strong><span>جولات مكتملة</span></div>
+            <div><strong id="todayCount">٠</strong><span>تسبيح اليوم</span></div>
+            <div><strong id="totalCount">٠</strong><span>الإجمالي</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prayer times -->
+    <section class="section-wrap content-section" id="prayer">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">على وقتها</span>
+          <h2>مواقيت الصلاة</h2>
+          <p>تابع مواقيت الصلاة حسب المدينة.</p>
+        </div>
+        <span class="heading-symbol">☾</span>
+      </div>
+
+      <div class="panel prayer-card">
+        <div class="prayer-location">
+          <div>
+            <strong id="locationName">القاهرة، مصر</strong>
+            <p id="todayDate">جارٍ تحميل التاريخ...</p>
+          </div>
+          <div class="reader-tools">
+            <button id="useLocation" class="small-button">موقعي ⌖</button>
+            <button id="refreshPrayer" class="small-button">تحديث ↻</button>
+          </div>
+        </div>
+
+        <div class="prayer-top">
+          <p id="prayerStatus" class="muted">جارٍ تحميل المواقيت...</p>
+          <div class="qibla" title="اتجاه القبلة">
+            <div class="qibla-dial"><span class="qibla-n">ش</span><span class="qibla-arrow" id="qiblaArrow">▲</span></div>
+            <span class="muted" id="qiblaText"></span>
+          </div>
+        </div>
+
+        <div class="prayer-times" id="prayerTimes">
+          <div class="prayer-time"><span>الفجر</span><strong>--:--</strong></div>
+          <div class="prayer-time"><span>الشروق</span><strong>--:--</strong></div>
+          <div class="prayer-time"><span>الظهر</span><strong>--:--</strong></div>
+          <div class="prayer-time"><span>العصر</span><strong>--:--</strong></div>
+          <div class="prayer-time"><span>المغرب</span><strong>--:--</strong></div>
+          <div class="prayer-time"><span>العشاء</span><strong>--:--</strong></div>
+        </div>
+
+        <p class="muted demo-note">
+          قد تختلف المواقيت حسب المدينة وطريقة الحساب.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a href="#home" class="footer-brand">۞ قرآنكم</a>
+    <p>اللهم اجعل القرآن ربيع قلوبنا ونور صدورنا.</p>
+    <span>مساحة هادئة للقرآن والذكر</span>
+  </footer>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="QuranAudio.js"></script>
+  <script src="QuranakumHadiths.js"></script>
+  <script src="Quranakum.js"></script>
+</body>
+</html>
